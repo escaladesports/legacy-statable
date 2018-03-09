@@ -5,9 +5,7 @@ import counter from './state'
 import Button from './button'
 
 setInterval(() => {
-	counter.setState({
-		progress: counter.state.progress + 1
-	})
+	counter.increment()
 }, 1000)
 
 const containerEl = document.createElement('div')

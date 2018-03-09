@@ -1,13 +1,16 @@
 class State{
-	constructor(state){
+	constructor(state, methods){
 		this.state = state
+		if(methods) {
+			Object.assign(this, methods)
+		}
 		this.subscriptions = []
 	}
 	setState(state){
 		Object.assign(this.state, state)
-		for (let i = this.subscriptions.length; i--;) {
-			this.subscriptions[i](this.state)
-		}
+		this.subscriptions.forEach(subscription => {
+			subscription(this.state)
+		})
 	}
 	subscribe(fn){
 		this.subscriptions.push(fn)
