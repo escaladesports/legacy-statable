@@ -5,7 +5,9 @@ class State{
 	}
 	setState(state){
 		Object.assign(this.state, state)
-		this.notify()
+		for (let i = this.subscriptions.length; i--;) {
+			this.subscriptions[i](this.state)
+		}
 	}
 	subscribe(fn){
 		this.subscriptions.push(fn)
@@ -14,11 +16,6 @@ class State{
 		let index = this.subscriptions.indexOf(fn)
 		if(index > -1){
 			this.subscriptions.splice(index, 1)
-		}
-	}
-	notify(){
-		for(let i = this.subscriptions.length; i--;){
-			this.subscriptions[i](this.state)
 		}
 	}
 }
