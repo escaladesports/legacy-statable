@@ -2,7 +2,9 @@ class State{
 	constructor(state, methods){
 		this.state = state
 		if(methods) {
-			Object.assign(this, methods)
+			for(let i in methods){
+				this[i] = methods[i].bind(this)
+			}
 		}
 		this.subscriptions = []
 	}

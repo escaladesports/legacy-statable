@@ -65,6 +65,19 @@ setTimeout(() => {
 }, 1000)
 ```
 
+## Subscribe to multiple states
+
+Pass in an array of states to subscribe to multiple states at once. The states will be returned as consecutive arguments in the callback.
+
+```jsx
+<Subscribe to={[counter, another]}>
+	{(counterState, anotherState) => (
+		<div>{counterState.progress}</div>
+		<div>{anotherState.text}</div>
+	)}
+</Subscribe>
+```
+
 ## Why?
 
 In short, all the state management libraries we used in the past were great but just had a few things that made them a no go for us. On one end of the spectrum, Redux was too large and we weren't using most of its features. On the other end, Unstated (which inspired Statable) couldn't easily be used outside of React. We sometimes needed to allow third parties to inject our React app, but also control the state in whatever environment they're building in.
