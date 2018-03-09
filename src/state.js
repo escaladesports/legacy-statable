@@ -4,9 +4,7 @@ class State{
 		this.subscriptions = []
 	}
 	setState(state){
-		for(let i in state){
-			this.state[i] = state[i]
-		}
+		Object.assign(this.state, state)
 		this.notify()
 	}
 	subscribe(fn){
