@@ -2,9 +2,13 @@
   "name": "statable",
   "version": "0.1.0",
   "keywords": [
-    "react",
-    "component",
-    "boilerplate"
+    "statable",
+    "state",
+	 "management",
+	 "simple",
+	 "react",
+	 "vanilla",
+	 "javascript"
   ],
   "main": "dist/index.js",
   "author": "Kennedy Rose <krose@escaladesports.com>",
