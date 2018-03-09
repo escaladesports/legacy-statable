@@ -23,25 +23,25 @@ import React from 'react'
 import { State, Subscribe } from 'statable'
 
 const counter = new State({
-	progress: 1
+   progress: 1
 })
 
 setTimeout(() => {
-	counter.setState({
-		progress: counter.state.progress + 1
-	})
+   counter.setState({
+      progress: counter.state.progress + 1
+   })
 }, 1000)
 
 export default class extends React.Component{
-	render(){
-		return(
-			<Subscribe to={counter}>
-				{state => (
-					<div>{state.progress}</div>
-				)}
-			</Subscribe>
-		)
-	}
+   render(){
+      return(
+         <Subscribe to={counter}>
+            {state => (
+               <div>{state.progress}</div>
+            )}
+         </Subscribe>
+      )
+   }
 }
 ```
 
@@ -51,17 +51,17 @@ If you'd rather keep your methods in the state object, you can do that through a
 
 ```javascript
 const counter = new State({
-	progress: 1
+   progress: 1
 }, {
-	increment(){
-		this.setState({
-			progress: this.state.progress + 1
-		})
-	}
+   increment(){
+      this.setState({
+         progress: this.state.progress + 1
+      })
+   }
 })
 
 setTimeout(() => {
-	counter.increment()
+   counter.increment()
 }, 1000)
 ```
 
@@ -71,10 +71,10 @@ Pass in an array of states to subscribe to multiple states at once. The states w
 
 ```jsx
 <Subscribe to={[counter, another]}>
-	{(counterState, anotherState) => (
-		<div>{counterState.progress}</div>
-		<div>{anotherState.text}</div>
-	)}
+   {(counterState, anotherState) => (
+      <div>{counterState.progress}</div>
+      <div>{anotherState.text}</div>
+   )}
 </Subscribe>
 ```
 
