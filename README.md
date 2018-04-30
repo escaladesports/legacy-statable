@@ -78,6 +78,26 @@ Pass in an array of states to subscribe to multiple states at once. The states w
 </Subscribe>
 ```
 
+## Subscribe/unsubscribe outside of React
+
+```javascript
+const counter = new State({
+   progress: 1
+})
+
+function onChange(state){
+	console.log('Progressed changed to: ' + state.progress)
+}
+
+counter.subscribe(onChange)
+```
+
+To unsubscribe, just pass the same function to the unsubscribe method:
+
+```javascript
+counter.unsubscribe(onChange)
+```
+
 ## Why?
 
 In short, all the state management libraries we used in the past were great but just had a few things that made them a no go for us. On one end of the spectrum, Redux was too large and we weren't using most of its features. On the other end, Unstated (which inspired Statable) couldn't easily be used outside of React. We sometimes needed to allow third parties to inject our React app, but also control the state in whatever environment they're building in.
