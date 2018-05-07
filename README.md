@@ -98,6 +98,24 @@ To unsubscribe, just pass the same function to the unsubscribe method:
 counter.unsubscribe(onChange)
 ```
 
+## Persistence
+
+Options can be set with the third argument. To save the state even when the browser is closed, you can set a localStorage name in your options.
+
+```javascript
+const counter = new State({
+   progress: 1
+}, {
+   increment(){
+      this.setState({
+         progress: this.state.progress + 1
+      })
+   }
+}, {
+   localStorage: 'myCounter'
+})
+```
+
 ## Why?
 
 In short, all the state management libraries we used in the past were great but just had a few things that made them a no go for us. On one end of the spectrum, Redux was too large and we weren't using most of its features. On the other end, Unstated (which inspired Statable) couldn't easily be used outside of React. We sometimes needed to allow third parties to inject our React app, but also control the state in whatever environment they're building in.
