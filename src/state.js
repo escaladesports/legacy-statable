@@ -1,18 +1,37 @@
 class State{
-	constructor(state, methods){
-		this.state = state
+	constructor(state, methods, options = {}){
 		if(methods) {
 			for(let i in methods){
 				this[i] = methods[i].bind(this)
 			}
 		}
 		this.subscriptions = []
+		this.options = options
+		if(options.localStorage){
+			let data = localStorage.getItem(options.localStorage)
+			try{
+				data = JSON.parse(data)
+				this.state = {
+					...state,
+					...data,
+				}
+			}
+			catch(err){
+				console.error(err)
+			}
+		}
+		else{
+			this.state = state
+		}
 	}
 	setState(state){
 		Object.assign(this.state, state)
 		this.subscriptions.forEach(subscription => {
 			subscription(this.state)
 		})
+		if(this.options.localStorage){
+			localStorage.setItem(this.options.localStorage, JSON.stringify(this.state))
+		}
 	}
 	subscribe(fn){
 		this.subscriptions.push(fn)
