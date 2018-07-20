@@ -7,7 +7,7 @@ class State{
 		}
 		this.subscriptions = []
 		this.options = options
-		if(options.localStorage){
+		if(options.localStorage && global.localStorage){
 			let data = localStorage.getItem(options.localStorage)
 			try{
 				data = JSON.parse(data)
@@ -29,7 +29,7 @@ class State{
 		this.subscriptions.forEach(subscription => {
 			subscription(this.state)
 		})
-		if(this.options.localStorage){
+		if(this.options.localStorage && global.localStorage){
 			localStorage.setItem(this.options.localStorage, JSON.stringify(this.state))
 		}
 	}
