@@ -1,39 +1,33 @@
-import { Component } from 'react'
+import { useState, useEffect } from "react";
 
-class Subscribe extends Component{
-	constructor(props){
-		super(props)
-		this.state = {}
-		if(Array.isArray(this.props.to)){
-			this.multi = true
-		}
-		this.onChange = this.onChange.bind(this)
-	}
-	componentWillMount(){
-		if (!this.multi) {
-			return this.props.to.subscribe(this.onChange)
-		}
-		this.props.to.forEach(to => {
-			to.subscribe(this.onChange)
-		})
-	}
-	componentWillUnmount() {
-		if (!this.multi) {
-			return this.props.to.unsubscribe(this.onChange)
-		}
-		this.props.to.forEach(to => {
-			to.unsubscribe(this.onChange)
-		})
-	}
-	onChange(){
-		this.setState({ changed: true })
-	}
-	render() {
-		if (!this.multi) {
-			return this.props.children(this.props.to.state)
-		}
-		return this.props.children(...this.props.to.map(to => to.state))
-	}
+function Subscribe(props) {
+  const [_, setState] = useState({});
+  let multi = false;
+
+  if (Array.isArray(props.to)) multi = true;
+
+  function onChange() {
+    setState({ changed: true });
+  }
+
+  useEffect(() => {
+    if (!multi) {
+      props.to.subscribe(onChange);
+      return;
+    }
+    props.to.forEach(to => to.subscribe(onChange));
+
+    return () => {
+      if (!multi) {
+        props.to.unsubscribe(onChange);
+        return;
+      }
+      props.to.forEach(to => to.unsubscribe(onChange));
+    };
+  }, []);
+
+  if (!multi) return props.children(props.to.state);
+  return props.children(...props.to.map(to => to.state));
 }
 
-export default Subscribe
+export default Subscribe;
