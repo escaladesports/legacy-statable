@@ -24,8 +24,9 @@ class State{
 			this.state = state
 		}
 	}
-	setState(state){
-		Object.assign(this.state, state)
+	setState(input){
+		const newState = typeof input === "function" ? input(this.state) : input
+		Object.assign(this.state, newState)
 		this.subscriptions.forEach(subscription => {
 			subscription(this.state)
 		})
