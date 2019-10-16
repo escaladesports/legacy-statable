@@ -10,11 +10,8 @@ class State{
 		if(options.localStorage && global.localStorage){
 			let data = localStorage.getItem(options.localStorage)
 			try{
-				data = JSON.parse(data)
-				this.state = {
-					...state,
-					...data,
-				}
+				let parsedData = JSON.parse(data)
+				this.state = Object.assign({}, state, parsedData)
 			}
 			catch(err){
 				console.error(err)
